@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>नयाँ वर्ष २०८३ — Kushal</title>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit&family=Cinzel:wght@600;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #f5c842;
+    --gold2: #e09b1a;
+    --pink: #ff6eb4;
+    --blue: #5bcfff;
+    --green: #4dffb4;
+    --bg: #07001a;
+    --card: rgba(255, 255, 255, 0.07);
+    --card-border: rgba(255, 255, 255, 0.18);
+  }
+
+  html, body {
+    min-height: 100%;
+    background:
+      radial-gradient(circle at top, rgba(72, 24, 140, 0.28), transparent 32%),
+      radial-gradient(circle at 20% 90%, rgba(255, 110, 180, 0.18), transparent 25%),
+      radial-gradient(circle at 85% 15%, rgba(91, 207, 255, 0.16), transparent 24%),
+      var(--bg);
+    overflow-x: hidden;
+  }
+
+  body {
+    min-height: 100svh;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow-y: auto;
+  }
+
+  #fxCanvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .stars,
+  .aurora {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .stars { z-index: 0; }
+  .aurora { z-index: 1; }
+
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle ease-in-out infinite;
+  }
+
+  .aurora::before,
+  .aurora::after {
+    content: "";
+    position: absolute;
+    width: 48vw;
+    height: 48vw;
+    min-width: 220px;
+    min-height: 220px;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.18;
+    animation: floatGlow 12s ease-in-out infinite;
+  }
+
+  .aurora::before {
+    top: 8%;
+    left: -8%;
+    background: radial-gradient(circle, rgba(255, 110, 180, 0.95), transparent 68%);
+  }
+
+  .aurora::after {
+    right: -12%;
+    bottom: 12%;
+    background: radial-gradient(circle, rgba(91, 207, 255, 0.95), transparent 70%);
+    animation-delay: -6s;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.12; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  @keyframes floatGlow {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(16px, -18px, 0) scale(1.08); }
+  }
+
+  .page {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 500px;
+    min-height: 100svh;
+    padding:
+      max(24px, env(safe-area-inset-top))
+      20px
+      max(34px, env(safe-area-inset-bottom))
+      20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .badge {
+    background: rgba(245, 200, 66, 0.12);
+    border: 1px solid rgba(245, 200, 66, 0.35);
+    border-radius: 999px;
+    padding: 6px 18px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    animation: fadeUp 0.8s 0.1s both;
+    backdrop-filter: blur(10px);
+  }
+
+  .heading-ne {
+    font-family: 'Tiro Devanagari Sanskrit', serif;
+    font-size: clamp(38px, 10vw, 62px);
+    line-height: 1.12;
+    text-align: center;
+    background: linear-gradient(160deg, #ffe0a0 0%, var(--gold) 40%, #ff9f43 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 18px rgba(245, 200, 66, 0.28));
+    animation: fadeUp 0.9s 0.22s both;
+  }
+
+  .heading-en {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(11px, 2.9vw, 15px);
+    letter-spacing: 5px;
+    color: rgba(255, 255, 255, 0.46);
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.9s 0.38s both;
+  }
+
+  .divider {
+    width: 84px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin-bottom: 28px;
+    animation: fadeUp 0.9s 0.5s both;
+  }
+
+  .sender {
+    font-size: clamp(12px, 3vw, 15px);
+    color: rgba(255, 255, 255, 0.58);
+    letter-spacing: 2px;
+    margin-bottom: 28px;
+    text-align: center;
+    animation: fadeUp 0.9s 0.62s both;
+  }
+
+  .sender span {
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  .photo-wrap {
+    width: 114px;
+    height: 114px;
+    border-radius: 50%;
+    border: 3px solid var(--gold);
+    box-shadow: 0 0 0 6px rgba(245, 200, 66, 0.12), 0 0 34px rgba(245, 200, 66, 0.24);
+    overflow: hidden;
+    margin-bottom: 26px;
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+    animation: fadeUp 0.9s 0.76s both;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .photo-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+  }
+
+  .photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .photo-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #120028, #3a0066);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .photo-placeholder .icon {
+    font-size: 28px;
+    opacity: 0.7;
+  }
+
+  .photo-placeholder .label {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, 0.45);
+    text-align: center;
+    line-height: 1.4;
+    padding: 0 8px;
+  }
+
+  .music-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: min(100%, 280px);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 999px;
+    padding: 11px 18px;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.28s ease;
+    margin-bottom: 30px;
+    animation: fadeUp 0.9s 0.88s both;
+    backdrop-filter: blur(10px);
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  .music-btn:hover,
+  .music-btn.playing {
+    background: rgba(245, 200, 66, 0.12);
+    border-color: rgba(245, 200, 66, 0.4);
+    color: var(--gold);
+    box-shadow: 0 10px 26px rgba(245, 200, 66, 0.12);
+  }
+
+  .music-btn.needs-tap {
+    border-color: rgba(255, 110, 180, 0.35);
+    color: #ffd4e8;
+  }
+
+  .music-btn .note {
+    font-size: 16px;
+    animation: none;
+  }
+
+  .music-btn.playing .note {
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .music-bars {
+    display: flex;
+    gap: 2px;
+    align-items: flex-end;
+    height: 14px;
+  }
+
+  .music-bars span {
+    width: 3px;
+    height: 4px;
+    background: currentColor;
+    border-radius: 2px;
+    animation: none;
+  }
+
+  .playing .music-bars span:nth-child(1) { animation: bar 0.8s 0s ease infinite alternate; }
+  .playing .music-bars span:nth-child(2) { animation: bar 0.8s 0.18s ease infinite alternate; }
+  .playing .music-bars span:nth-child(3) { animation: bar 0.8s 0.34s ease infinite alternate; }
+  .playing .music-bars span:nth-child(4) { animation: bar 0.8s 0.1s ease infinite alternate; }
+
+  @keyframes bar {
+    from { height: 3px; }
+    to { height: 13px; }
+  }
+
+  .btn-row {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 28px;
+    animation: fadeUp 0.9s 1s both;
+  }
+
+  .fam-btn {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 16px 8px;
+    border: none;
+    border-radius: 18px;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(13px, 3.5vw, 15px);
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease, box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    position: relative;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  .fam-btn .emoji {
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .fam-btn .label-ne {
+    font-family: 'Tiro Devanagari Sanskrit', serif;
+    font-size: clamp(16px, 4.4vw, 20px);
+    line-height: 1;
+  }
+
+  .fam-btn .label-en {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    opacity: 0.72;
+    text-transform: uppercase;
+  }
+
+  .btn-mom {
+    background: linear-gradient(145deg, #ff4d8b, #cc1f5e);
+    color: #fff;
+    box-shadow: 0 8px 26px rgba(255, 77, 139, 0.45);
+  }
+
+  .btn-dad {
+    background: linear-gradient(145deg, #2196f3, #0b5cc7);
+    color: #fff;
+    box-shadow: 0 8px 26px rgba(33, 150, 243, 0.45);
+  }
+
+  .btn-bro {
+    background: linear-gradient(145deg, #00d084, #008f57);
+    color: #fff;
+    box-shadow: 0 8px 26px rgba(0, 208, 132, 0.42);
+  }
+
+  .fam-btn:active { transform: scale(0.94); }
+  .fam-btn.selected { transform: scale(1.06); filter: brightness(1.12); }
+
+  .msg-card {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 22px;
+    padding: 26px 22px;
+    min-height: 132px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeUp 0.9s 1.12s both;
+    transition: border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.15);
+  }
+
+  .msg-card.mom-active {
+    border-color: rgba(255, 77, 139, 0.42);
+    background: rgba(255, 77, 139, 0.08);
+    box-shadow: 0 16px 36px rgba(255, 77, 139, 0.12);
+  }
+
+  .msg-card.dad-active {
+    border-color: rgba(33, 150, 243, 0.42);
+    background: rgba(33, 150, 243, 0.08);
+    box-shadow: 0 16px 36px rgba(33, 150, 243, 0.12);
+  }
+
+  .msg-card.bro-active {
+    border-color: rgba(0, 208, 132, 0.42);
+    background: rgba(0, 208, 132, 0.08);
+    box-shadow: 0 16px 36px rgba(0, 208, 132, 0.12);
+  }
+
+  .msg-text {
+    width: 100%;
+    text-align: center;
+    white-space: pre-line;
+    font-family: 'Tiro Devanagari Sanskrit', serif;
+    font-size: clamp(15px, 3.8vw, 17px);
+    line-height: 1.9;
+    color: rgba(255, 255, 255, 0.54);
+  }
+
+  .msg-text.active {
+    color: rgba(255, 255, 255, 0.94);
+  }
+
+  .cursor-blink {
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    background: var(--gold);
+    margin-left: 1px;
+    vertical-align: text-bottom;
+    animation: blink 0.65s infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .helper {
+    margin-top: 16px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.42);
+    text-align: center;
+    animation: fadeUp 0.9s 1.24s both;
+  }
+
+  .helper strong {
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 600;
+  }
+
+  .footer {
+    margin-top: 28px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, 0.22);
+    text-transform: uppercase;
+    text-align: center;
+    animation: fadeUp 0.9s 1.36s both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 420px) {
+    .page {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .btn-row {
+      gap: 10px;
+    }
+
+    .msg-card {
+      padding: 24px 18px;
+      min-height: 122px;
+    }
+  }
+
+  @media (max-width: 340px) {
+    .btn-row {
+      gap: 8px;
+    }
+
+    .fam-btn {
+      padding: 14px 6px;
+      border-radius: 16px;
+    }
+
+    .music-btn {
+      width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="aurora"></div>
+<canvas id="fxCanvas"></canvas>
+
+<div class="page">
+  <div class="badge">Bikram Sambat · विक्रम संवत्</div>
+
+  <div class="heading-ne">नयाँ वर्ष<br>२०८३</div>
+  <div class="heading-en">HAPPY NEW YEAR 2083 to my beloved family</div>
+  <div class="divider"></div>
+  <div class="sender">सप्रेम शुभकामना — <span>kushal</span> को तर्फबाट मेरो प्यारो परिवारलाई</div>
+
+  <div class="photo-wrap" id="photoWrap" title="Tap for extra celebration">
+      <img src="fam.jpeg" alt="Family Photo">
+  </div>
+
+  <audio id="bgMusic" loop preload="auto" playsinline>
+    <source src="नयाँ_पालुवा.mp3" type="audio/mpeg">
+  </audio>
+
+  <button class="music-btn" id="musicBtn" type="button" aria-label="Toggle music">
+    <span class="note" id="musicNote">♪</span>
+    <div class="music-bars" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <span id="musicLabel">Auto music starting...</span>
+  </button>
+
+  <div class="btn-row">
+    <button class="fam-btn btn-mom" type="button" data-person="mom">
+      <span class="emoji">🌸</span>
+      <span class="label-ne">आमा</span>
+      <span class="label-en">Mom</span>
+    </button>
+    <button class="fam-btn btn-dad" type="button" data-person="dad">
+      <span class="emoji">⭐</span>
+      <span class="label-ne">बुबा</span>
+      <span class="label-en">Dad</span>
+    </button>
+    <button class="fam-btn btn-bro" type="button" data-person="bro">
+      <span class="emoji">⚡</span>
+      <span class="label-ne">भाइ</span>
+      <span class="label-en">Bro</span>
+    </button>
+  </div>
+
+  <div class="msg-card" id="msgCard">
+    <div class="msg-text" id="msgText">कुशलसँग तपाईंको के सम्बन्ध छ? ↑</div>
+  </div>
+
+  <div class="helper"><strong>Tap buttons</strong> for personal wishes,वा ठूलो झिलिमिली हेर्न फोटोमा ट्याप गर्नुहोस्।.</div>
+  <div class="footer">made with ❤️ by kushal · नयाँ वर्ष 2083</div>
+</div>
+
+<script>
+  const messages = {
+    mom: {
+      theme: "mom-active",
+      colors: ["#ff4d8b", "#ff88bb", "#ffd0e3", "#ffc04d"],
+      text: "आमा ❤️\n\nनयाँ वर्ष २०८३ को तपाईंलाई मेरो तर्फबाट हृदयदेखि धेरै धेरै शुभकामना 🙏✨\n\nतपाईं मेरो जीवनको सबैभन्दा ठूलो आशीर्वाद हुनुहुन्छ। म आज जे छु, जहाँ छु, त्यो सबै तपाईंको माया, त्याग र संघर्षको कारणले हो। तपाईंले कहिल्यै आफ्नो खुशी भन्दा मेरो खुशीलाई अगाडि राख्नुभयो, कहिल्यै थाक्नु भएन, कहिल्यै हार मान्नु भएन।\n\nआमा, तपाईं बिना मेरो जीवन अधुरो छ। तपाईंको हाँसो मेरो शक्ति हो र तपाईंको आँसु मेरो कमजोरी। म सधैं चाहन्छु तपाईं स्वस्थ रहनुहोस्, खुसी रहनुहोस् र शान्त जीवन जिउनुहोस्।\n\nयो नयाँ वर्ष २०८३ तपाईंको जीवनमा अनगिन्ती खुशी, राम्रो स्वास्थ्य, शान्ति र सफलताको वर्ष बनोस्। म सधैं प्रयास गर्नेछु तपाईंलाई गर्व गराउने मान्छे बन्न।\n\nधेरै धेरै माया आमा ❤️🙏\n\n— तपाईंको छोरा, Kushal"
+    },
+
+    dad: {
+      theme: "dad-active",
+      colors: ["#2196f3", "#64b5f6", "#bbdefb", "#6fd3ff"],
+      text: "बुबा 💙\n\nनयाँ वर्ष २०८३ को हार्दिक मंगलमय शुभकामना 🙏✨\n\nतपाईं मेरो जीवनको सबैभन्दा ठूलो प्रेरणा हुनुहुन्छ। तपाईंले देखाउनुभएको इमानदारी, मेहनत र संघर्षको बाटो नै मेरो लागि जीवनको असली पाठशाला हो।\n\nतपाईंले कहिल्यै आफ्नो थकान देखाउनु भएन, सधैं परिवारको लागि मात्र सोच्नुभयो। म सधैं चाहन्छु म पनि तपाईं जस्तै जिम्मेवार, बलियो र सम्मानित मान्छे बन्न सकूँ।\n\nयो नयाँ वर्ष तपाईंको जीवनमा राम्रो स्वास्थ्य, सफलता, शान्ति र खुशी ल्याओस्। तपाईंको सु स्वास्थ्यको कामना गर्दछु, सधैं खुसी रहनुहोस् 🙏✨।\n\nम तपाईंलाई धेरै सम्मान गर्छु र धेरै माया गर्छु ❤️\n\n— Kushal"
+    },
+
+    bro: {
+      theme: "bro-active",
+      colors: ["#00d084", "#69f0ae", "#b9f6ca", "#ffe066"],
+      text: "भाइ 😎🔥\n\nनयाँ वर्ष २०८३ मुबारक 🎉✨\n\nयो नयाँ वर्ष तेरो जीवनमा धेरै धेरै खुशी, सफलता र नयाँ अवसरहरू लिएर आओस्। तेरो सपना ठूलो होस् र त्यो सपना पूरा गर्ने शक्ति पनि सधैं तेरो साथमा रहोस्।\n\nतँ मेरो लागि केवल भाइ मात्र होइन, साथी पनि हो। हामीले सँगै बिताएका समयहरू सधैं यादगार छन्। म सधैं तेरो साथमा छु, चाहे राम्रो समय होस् वा गाह्रो समय।\n\nसधैं मेहनत गर, कहिल्यै हार नमान, र आफ्नो लक्ष्य पछ्याइरह। iam proud of you man!\n\nLove you bro ❤️🔥\n\n— Kushal"
+    }
+  };
+
+  const palette = {
+    auto: ["#f5c842", "#ff6eb4", "#5bcfff", "#4dffb4", "#c084fc", "#ff9f43"],
+    warm: ["#ffc44d", "#ff7b54", "#ff4d8b", "#fff2a8"],
+    cool: ["#5bcfff", "#77a7ff", "#c084fc", "#ffffff"]
+  };
+
+  const body = document.body;
+  const audio = document.getElementById("bgMusic");
+  const musicBtn = document.getElementById("musicBtn");
+  const musicLabel = document.getElementById("musicLabel");
+  const musicNote = document.getElementById("musicNote");
+  const msgCard = document.getElementById("msgCard");
+  const msgText = document.getElementById("msgText");
+  const photoWrap = document.getElementById("photoWrap");
+
+  let isPlaying = false;
+  let needsMusicTap = false;
+  let typingTimer = null;
+  let currentTheme = "";
+
+  function setMusicUI(state) {
+    musicBtn.classList.toggle("playing", state === "playing");
+    musicBtn.classList.toggle("needs-tap", state === "needsTap");
+
+    if (state === "playing") {
+      musicLabel.textContent = "रोक्नुहोस् · Pause Music";
+      musicNote.textContent = "♫";
+    } else if (state === "needsTap") {
+      musicLabel.textContent = "Tap for Music";
+      musicNote.textContent = "♪";
+    } else {
+      musicLabel.textContent = "सुन्नुहोस् · Play Music";
+      musicNote.textContent = "♪";
+    }
+  }
+
+  async function tryPlayMusic() {
+    try {
+      audio.volume = 0.9;
+      await audio.play();
+      isPlaying = true;
+      needsMusicTap = false;
+      setMusicUI("playing");
+      return true;
+    } catch (error) {
+      isPlaying = false;
+      needsMusicTap = true;
+      setMusicUI("needsTap");
+      return false;
+    }
+  }
+
+  function toggleMusic() {
+    if (isPlaying) {
+      audio.pause();
+      isPlaying = false;
+      needsMusicTap = false;
+      setMusicUI("paused");
+      return;
+    }
+    tryPlayMusic();
+  }
+
+  function unlockMusicOnce() {
+    if (!isPlaying) {
+      tryPlayMusic();
+    }
+  }
+
+  musicBtn.addEventListener("click", toggleMusic);
+
+  function handleFirstGesture(event) {
+    if (event.target && musicBtn.contains(event.target)) {
+      return;
+    }
+    unlockMusicOnce();
+    window.removeEventListener("pointerdown", handleFirstGesture);
+    window.removeEventListener("touchstart", handleFirstGesture);
+  }
+
+  function handleFirstKey() {
+    unlockMusicOnce();
+    window.removeEventListener("keydown", handleFirstKey);
+  }
+
+  window.addEventListener("pointerdown", handleFirstGesture, { passive: true });
+  window.addEventListener("touchstart", handleFirstGesture, { passive: true });
+  window.addEventListener("keydown", handleFirstKey);
+
+  window.addEventListener("load", () => {
+    setMusicUI("paused");
+    setTimeout(tryPlayMusic, 300);
+  });
+
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden && !isPlaying && !needsMusicTap) {
+      tryPlayMusic();
+    }
+  });
+
+  function typeEffect(text, element) {
+    if (typingTimer) {
+      clearTimeout(typingTimer);
+    }
+
+    const chars = Array.from(text);
+    let index = 0;
+    element.textContent = "";
+    const cursor = document.createElement("span");
+    cursor.className = "cursor-blink";
+
+    function tick() {
+      if (index < chars.length) {
+        element.textContent += chars[index];
+        element.appendChild(cursor);
+        index += 1;
+        typingTimer = setTimeout(tick, index < 4 ? 0 : 22);
+      } else {
+        cursor.remove();
+      }
+    }
+
+    tick();
+  }
+
+  function showMessage(who, button) {
+    const item = messages[who];
+    if (!item) return;
+
+    document.querySelectorAll(".fam-btn").forEach((btn) => btn.classList.remove("selected"));
+    if (button) {
+      button.classList.add("selected");
+    }
+
+    if (currentTheme) {
+      msgCard.classList.remove(currentTheme);
+    }
+
+    msgCard.classList.add(item.theme);
+    currentTheme = item.theme;
+    msgText.classList.add("active");
+    typeEffect(item.text, msgText);
+
+    themeCelebration(item.colors);
+    unlockMusicOnce();
+  }
+
+  document.querySelectorAll(".fam-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+      showMessage(button.dataset.person, button);
+    });
+  });
+
+  photoWrap.addEventListener("click", () => {
+    grandCelebration();
+    unlockMusicOnce();
+  });
+
+  const canvas = document.getElementById("fxCanvas");
+  const ctx = canvas.getContext("2d");
+
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+  let rockets = [];
+  let particles = [];
+  let rings = [];
+  let sparkles = [];
+
+  function resizeCanvas() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+    canvas.style.width = width + "px";
+    canvas.style.height = height + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  resizeCanvas();
+  window.addEventListener("resize", resizeCanvas);
+
+  function rand(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  function pick(list) {
+    return list[Math.floor(Math.random() * list.length)];
+  }
+
+  function isSmallScreen() {
+    return width < 500;
+  }
+
+  function addParticle(particle) {
+    particles.push(particle);
+    const limit = isSmallScreen() ? 680 : 1100;
+    if (particles.length > limit) {
+      particles.splice(0, particles.length - limit);
+    }
+  }
+
+  function addRing(ring) {
+    rings.push(ring);
+    if (rings.length > 24) {
+      rings.shift();
+    }
+  }
+
+  function addSparkle(sparkle) {
+    sparkles.push(sparkle);
+    if (sparkles.length > 60) {
+      sparkles.shift();
+    }
+  }
+
+  function launchRocket(options = {}) {
+    const fromX = options.fromX ?? rand(width * 0.08, width * 0.92);
+    const fromY = options.fromY ?? (height + rand(14, 90));
+    const targetX = options.targetX ?? rand(width * 0.16, width * 0.84);
+    const targetY = options.targetY ?? rand(height * 0.12, height * 0.48);
+    const frames = options.frames ?? rand(38, 58);
+
+    rockets.push({
+      x: fromX,
+      y: fromY,
+      vx: (targetX - fromX) / frames,
+      vy: (targetY - fromY) / frames,
+      tx: targetX,
+      ty: targetY,
+      colors: options.colors || palette.auto,
+      power: options.power || 1,
+      ringColor: options.ringColor || pick(options.colors || palette.auto),
+      trail: [],
+      size: options.size || rand(2.1, 2.9),
+      crackle: options.crackle !== false
+    });
+  }
+
+  function burst(x, y, colors, power = 1, crackle = true) {
+    const base = isSmallScreen() ? 58 : 86;
+    const count = Math.round(base * power);
+
+    addRing({
+      x,
+      y,
+      radius: 8,
+      maxRadius: 50 + power * 40,
+      alpha: 0.36,
+      color: pick(colors)
+    });
+
+    for (let i = 0; i < count; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = rand(1.3, 4.8) * power * (0.88 + Math.random() * 0.48);
+      addParticle({
+        x,
+        y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        gravity: 0.045 + Math.random() * 0.03,
+        drag: 0.985,
+        life: 52 + Math.random() * 28,
+        maxLife: 80,
+        size: rand(1.4, 3.2),
+        color: pick(colors),
+        trail: [],
+        twinkle: Math.random() > 0.68
+      });
+    }
+
+    if (crackle) {
+      const crackleCount = Math.round((isSmallScreen() ? 18 : 28) * power);
+      for (let i = 0; i < crackleCount; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = rand(0.9, 3.2) * power;
+        addParticle({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - rand(0.2, 0.9),
+          gravity: 0.025 + Math.random() * 0.02,
+          drag: 0.975,
+          life: 24 + Math.random() * 14,
+          maxLife: 44,
+          size: rand(1, 2),
+          color: pick(["#ffffff", "#ffe38a", pick(colors)]),
+          trail: [],
+          twinkle: true
+        });
+      }
+    }
+
+    for (let i = 0; i < 4; i++) {
+      addSparkle({
+        x: x + rand(-16, 16),
+        y: y + rand(-16, 16),
+        radius: rand(1.5, 3.2),
+        alpha: 0.5 + Math.random() * 0.3,
+        life: 16 + Math.random() * 10,
+        color: pick(colors)
+      });
+    }
+  }
+
+  function sprayCracker(x, y, colors, power = 1) {
+    const count = Math.round((isSmallScreen() ? 26 : 36) * power);
+    addRing({
+      x,
+      y,
+      radius: 4,
+      maxRadius: 24 + power * 18,
+      alpha: 0.28,
+      color: pick(colors)
+    });
+
+    for (let i = 0; i < count; i++) {
+      const angle = rand(-Math.PI * 0.92, -Math.PI * 0.08);
+      const speed = rand(1.4, 4.2) * power;
+      addParticle({
+        x,
+        y,
+        vx: Math.cos(angle) * speed * rand(0.35, 1),
+        vy: Math.sin(angle) * speed - rand(0.2, 1.6),
+        gravity: 0.08 + Math.random() * 0.03,
+        drag: 0.97,
+        life: 26 + Math.random() * 18,
+        maxLife: 46,
+        size: rand(1.2, 2.8),
+        color: pick(colors),
+        trail: [],
+        twinkle: Math.random() > 0.5
+      });
+    }
+  }
+
+  function explodeRocket(index) {
+    const rocket = rockets[index];
+    if (!rocket) return;
+    burst(rocket.x, rocket.y, rocket.colors, rocket.power, rocket.crackle);
+    rockets.splice(index, 1);
+  }
+
+  function themeCelebration(colors) {
+    launchRocket({
+      fromX: width * 0.2,
+      targetX: width * 0.32,
+      targetY: height * 0.32,
+      colors,
+      power: 0.9
+    });
+    launchRocket({
+      fromX: width * 0.8,
+      targetX: width * 0.68,
+      targetY: height * 0.26,
+      colors,
+      power: 0.9
+    });
+    setTimeout(() => burst(width * 0.5, height * 0.24, colors, 1.15, true), 220);
+    setTimeout(() => sprayCracker(width * 0.14, height * 0.8, colors, 1), 180);
+    setTimeout(() => sprayCracker(width * 0.86, height * 0.82, colors, 1), 280);
+  }
+
+  function grandCelebration() {
+    const colors = palette.auto;
+    launchRocket({ fromX: width * 0.16, targetX: width * 0.28, targetY: height * 0.28, colors, power: 1.05 });
+    launchRocket({ fromX: width * 0.5, targetX: width * 0.5, targetY: height * 0.18, colors: palette.warm, power: 1.22 });
+    launchRocket({ fromX: width * 0.84, targetX: width * 0.72, targetY: height * 0.26, colors, power: 1.05 });
+    setTimeout(() => burst(width * 0.5, height * 0.22, palette.cool, 1.28, true), 300);
+    setTimeout(() => burst(width * 0.34, height * 0.3, palette.warm, 0.95, true), 520);
+    setTimeout(() => burst(width * 0.68, height * 0.28, palette.auto, 0.95, true), 640);
+    setTimeout(() => sprayCracker(width * 0.08, height * 0.86, palette.warm, 1.15), 160);
+    setTimeout(() => sprayCracker(width * 0.92, height * 0.86, palette.cool, 1.15), 240);
+  }
+
+  function animate() {
+    ctx.fillStyle = "rgba(7, 0, 26, 0.17)";
+    ctx.fillRect(0, 0, width, height);
+
+    for (let i = rings.length - 1; i >= 0; i--) {
+      const ring = rings[i];
+      ring.radius += 1.35;
+      ring.alpha *= 0.95;
+      ctx.beginPath();
+      ctx.arc(ring.x, ring.y, ring.radius, 0, Math.PI * 2);
+      ctx.strokeStyle = hexToRgba(ring.color, ring.alpha);
+      ctx.lineWidth = 1.4;
+      ctx.stroke();
+      if (ring.radius >= ring.maxRadius || ring.alpha <= 0.02) {
+        rings.splice(i, 1);
+      }
+    }
+
+    for (let i = rockets.length - 1; i >= 0; i--) {
+      const rocket = rockets[i];
+      rocket.trail.push({ x: rocket.x, y: rocket.y });
+      if (rocket.trail.length > 10) rocket.trail.shift();
+
+      ctx.beginPath();
+      for (let t = 0; t < rocket.trail.length; t++) {
+        const point = rocket.trail[t];
+        const alpha = (t + 1) / rocket.trail.length;
+        ctx.fillStyle = hexToRgba(pick(rocket.colors), alpha * 0.26);
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, rocket.size * alpha, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.fillStyle = pick(rocket.colors);
+      ctx.beginPath();
+      ctx.arc(rocket.x, rocket.y, rocket.size, 0, Math.PI * 2);
+      ctx.fill();
+
+      rocket.x += rocket.vx;
+      rocket.y += rocket.vy;
+      rocket.vy += 0.008;
+
+      if (rocket.y <= rocket.ty || Math.abs(rocket.x - rocket.tx) < 4 && rocket.y <= rocket.ty + 8) {
+        explodeRocket(i);
+      }
+    }
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const particle = particles[i];
+      particle.trail.push({ x: particle.x, y: particle.y });
+      if (particle.trail.length > 5) particle.trail.shift();
+
+      for (let t = 1; t < particle.trail.length; t++) {
+        const prev = particle.trail[t - 1];
+        const next = particle.trail[t];
+        const alpha = (t / particle.trail.length) * (particle.life / particle.maxLife) * 0.35;
+        ctx.strokeStyle = hexToRgba(particle.color, alpha);
+        ctx.lineWidth = Math.max(0.5, particle.size * 0.5);
+        ctx.beginPath();
+        ctx.moveTo(prev.x, prev.y);
+        ctx.lineTo(next.x, next.y);
+        ctx.stroke();
+      }
+
+      const alpha = Math.max(0, particle.life / particle.maxLife);
+      const flicker = particle.twinkle ? (0.65 + Math.random() * 0.55) : 1;
+      ctx.fillStyle = hexToRgba(particle.color, alpha * flicker);
+      ctx.beginPath();
+      ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+      ctx.fill();
+
+      particle.x += particle.vx;
+      particle.y += particle.vy;
+      particle.vx *= particle.drag;
+      particle.vy = particle.vy * particle.drag + particle.gravity;
+      particle.life -= 1;
+
+      if (particle.life <= 0) {
+        particles.splice(i, 1);
+      }
+    }
+
+    for (let i = sparkles.length - 1; i >= 0; i--) {
+      const sparkle = sparkles[i];
+      ctx.fillStyle = hexToRgba(sparkle.color, sparkle.alpha);
+      ctx.beginPath();
+      ctx.arc(sparkle.x, sparkle.y, sparkle.radius, 0, Math.PI * 2);
+      ctx.fill();
+      sparkle.alpha *= 0.9;
+      sparkle.life -= 1;
+      if (sparkle.life <= 0 || sparkle.alpha <= 0.03) {
+        sparkles.splice(i, 1);
+      }
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  function hexToRgba(hex, alpha) {
+    const value = hex.replace("#", "");
+    const safe = value.length === 3
+      ? value.split("").map((char) => char + char).join("")
+      : value;
+    const int = parseInt(safe, 16);
+    const r = (int >> 16) & 255;
+    const g = (int >> 8) & 255;
+    const b = int & 255;
+    return "rgba(" + r + "," + g + "," + b + "," + alpha + ")";
+  }
+
+  const starsElement = document.getElementById("stars");
+  const starCount = Math.min(90, Math.max(48, Math.round(window.innerWidth / 6)));
+
+  for (let i = 0; i < starCount; i++) {
+    const star = document.createElement("div");
+    star.className = "star";
+    const size = 0.8 + Math.random() * 2.1;
+    star.style.width = size + "px";
+    star.style.height = size + "px";
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 100 + "%";
+    star.style.animationDuration = 2 + Math.random() * 5 + "s";
+    star.style.animationDelay = Math.random() * 5 + "s";
+    starsElement.appendChild(star);
+  }
+
+  function scheduleAutoRockets() {
+    launchRocket({
+      fromX: rand(width * 0.08, width * 0.92),
+      targetX: rand(width * 0.15, width * 0.85),
+      targetY: rand(height * 0.12, height * 0.48),
+      colors: Math.random() > 0.5 ? palette.auto : (Math.random() > 0.5 ? palette.warm : palette.cool),
+      power: rand(0.72, 1.08)
+    });
+
+    if (Math.random() > 0.55) {
+      setTimeout(() => {
+        launchRocket({
+          fromX: rand(width * 0.1, width * 0.9),
+          targetX: rand(width * 0.15, width * 0.85),
+          targetY: rand(height * 0.12, height * 0.44),
+          colors: palette.auto,
+          power: rand(0.68, 0.94),
+          crackle: Math.random() > 0.28
+        });
+      }, rand(120, 320));
+    }
+
+    setTimeout(scheduleAutoRockets, rand(900, 1500));
+  }
+
+  function scheduleCrackers() {
+    const sideLeft = Math.random() > 0.5;
+    sprayCracker(
+      sideLeft ? rand(width * 0.05, width * 0.2) : rand(width * 0.8, width * 0.95),
+      rand(height * 0.76, height * 0.9),
+      Math.random() > 0.5 ? palette.warm : palette.auto,
+      rand(0.78, 1.1)
+    );
+    setTimeout(scheduleCrackers, rand(1400, 2500));
+  }
+
+  function openingSequence() {
+    launchRocket({ fromX: width * 0.22, targetX: width * 0.3, targetY: height * 0.3, colors: palette.warm, power: 1 });
+    setTimeout(() => launchRocket({ fromX: width * 0.8, targetX: width * 0.7, targetY: height * 0.28, colors: palette.cool, power: 1 }), 180);
+    setTimeout(() => launchRocket({ fromX: width * 0.5, targetX: width * 0.5, targetY: height * 0.18, colors: palette.auto, power: 1.16 }), 360);
+    setTimeout(() => burst(width * 0.5, height * 0.22, palette.auto, 1.25, true), 680);
+    setTimeout(() => sprayCracker(width * 0.1, height * 0.84, palette.warm, 1.08), 420);
+    setTimeout(() => sprayCracker(width * 0.9, height * 0.84, palette.cool, 1.08), 540);
+  }
+
+  animate();
+  openingSequence();
+  scheduleAutoRockets();
+  scheduleCrackers();
+</script>
+
+</body>
+</html>
